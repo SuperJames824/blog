@@ -3,6 +3,7 @@ package com.blog.service.impl;
 import com.blog.dao.BloggerDao;
 import com.blog.entity.Blogger;
 import com.blog.service.BloggerService;
+import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ public class BloggerServiceImpl implements BloggerService {
 
 @Resource
     private BloggerDao bloggerDao;
+
 
     @Override
     public Blogger findByName(String username) {
@@ -27,6 +29,11 @@ public class BloggerServiceImpl implements BloggerService {
     @Override
     public Integer update(Blogger paramBlogger) {
         return bloggerDao.update(paramBlogger);
+    }
+
+    @Override
+    public Blogger find() {
+        return bloggerDao.find();
     }
 }
 

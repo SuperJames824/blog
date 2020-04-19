@@ -42,22 +42,23 @@
 </head>
 <body style="margin: 10px">
 <div id="p" class="easyui-panel" title="修改个人信息" style="padding: 10px">
+<%--																						     	   	enctype属性支持上传图片--%>
 	<form id="form1" action="${pageContext.request.contextPath}/admin/blogger/save.do" method="post" enctype="multipart/form-data">
 	 	<table cellspacing="20px">
 	   		<tr>
 	   			<td width="80px">用户名：</td>
 	   			<td>
-	   				<input type="hidden" id="id" name="id" value="${currentUser.id }"/>
-	   				<input type="text" id="userName" name="userName" style="width: 200px;" value="${currentUser.userName }" readonly="readonly"/>
+	   				<input type="hidden" id="id" name="id" value="${currentUser.id}"/>
+	   				<input type="text" id="userName" name="userName" style="width: 200px;" value="${currentUser.userName}" placeholder="用户名为admin无法更改" readonly="readonly"/>
 	   			</td>
 	   		</tr>
 	   		<tr>
 	   			<td>昵称：</td>
-	   			<td><input type="text" id="nickName" name="nickName"  style="width: 200px;"/></td>
+	   			<td><input type="text" id="nickName" name="nickName" value="${currentUser.nickName}"  style="width: 200px;"/></td>
 	   		</tr>
 	   		<tr>
 	   			<td>个性签名：</td>
-	   			<td><input type="text" id="sign" name="sign" value="${currentUser.sign }" style="width: 400px;"/></td>
+	   			<td><input type="text" id="sign" name="sign" value="${currentUser.sign}" style="width: 400px;"/></td>
 	   		</tr>
 	   		<tr>
 	   			<td>个人头像：</td>
@@ -84,20 +85,23 @@
 
     //实例化编辑器
     //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
-    var ue = UE.getEditor('proFile');
+	var ue = UE.getEditor('proFile',{
+		//这里可以选择自己需要的工具按钮名称,此处仅选择如下五个
+		toolbars:[['FullScreen','simpleupload','insertimage','Source', 'Undo', 'Redo','Bold','test']]
+
+	})
+
 
     ue.addListener("ready",function(){
         //通过ajax请求数据
         UE.ajax.request("${pageContext.request.contextPath}/admin/blogger/find.do",
-            {
+            {	//直接从session里面取出图片会出错，所以这里选择从后台传递的json里面取出
                 method:"post",
-                async : false,  
+                async : true,
                 data:{},
                 onsuccess:function(result){
-                	result = eval("(" + result.responseText + ")");  
-                	$("#nickName").val(result.nickName);
-                	$("#sign").val(result.sign);
-                	$("#nickName").val(result.nickName);
+                	result = eval("(" + result.responseText + ")");
+                	//给编辑器赋值
        				UE.getEditor('proFile').setContent(result.proFile);
                 }
             }

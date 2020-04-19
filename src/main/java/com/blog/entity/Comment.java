@@ -1,9 +1,13 @@
 package com.blog.entity;
 
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
 
+@Data
 public class Comment implements Serializable {
+
     private Integer id;
     //用户IP
     private String userIp;
@@ -16,52 +20,4 @@ public class Comment implements Serializable {
     //评论状态
     private Integer state;
 
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getUserIp() {
-        return userIp;
-    }
-
-    public void setUserIp(String userIp) {
-        this.userIp = userIp;
-    }
-
-    public String getContent() {
-        return Content;
-    }
-
-    public void setContent(String content) {
-        Content = content;
-    }
-
-    public Blog getBlog() {
-        return blog;
-    }
-
-    public void setBlog(Blog blog) {
-        this.blog = blog;
-    }
-
-    public Date getCommentDate() {
-        return commentDate;
-    }
-
-    public void setCommentDate(Date commentDate) {
-        this.commentDate = commentDate;
-    }
-
-    public Integer getState() {
-        return state;
-    }
-
-    public void setState(Integer state) {
-        this.state = state;
-    }
 }

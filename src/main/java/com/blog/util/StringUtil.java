@@ -20,14 +20,12 @@ public class StringUtil {
     }
 
 
-    /**
+    /**供模糊查询使用，判断是否为空，然后加上'% %'
      * @param str
-     * 供模糊查询使用的，判断是否为空，然后给它加上 % %
      * @return
      */
-    /* 24:   */
-    public static String formatLike(String str)
-    /* 25:   */ {
+
+    public static String formatLike(String str) {
         if (isNotEmpty(str)) {
             return "%" + str + "%";
         }

@@ -21,5 +21,12 @@ public interface CommentDao {
     Long getTotal(Map<String, Object> paramMap);
     //删除
     Integer delete(Integer paramInteger);
+
+    /**
+     * 删除博客的时候，调用此方法按照博客id删除其下评论，
+     * @param blogId
+     * @return
+     */
+    Integer deleteByBlogId(Integer blogId);
 }
 

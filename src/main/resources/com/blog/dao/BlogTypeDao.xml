@@ -17,7 +17,7 @@
             limit #{start},#{size}
         </if>
     </select>
-<!--    map没用到，可以删掉-->
+<!--    map没用到-->
     <select id="getTotal" parameterType="Map" resultType="Long">
 		select count(*) from t_blogType
 	</select>

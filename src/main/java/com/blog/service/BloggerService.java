@@ -22,5 +22,9 @@ public interface BloggerService {
      */
     Integer update(Blogger paramBlogger);
 
-
+    /**
+     * 无参数查找唯一的blogger
+     * * @return
+     */
+    Blogger find();
 }

@@ -55,4 +55,10 @@
     <delete id="delete" parameterType="Integer">
 		delete from t_comment where id=#{id}
 	</delete>
+
+    <delete id="deleteByBlogId" parameterType="Integer">
+        delete from t_comment where blogId=#{blogId}
+     </delete>
+
+
 </mapper>

@@ -1,6 +1,7 @@
 package com.blog.service.impl;
 
 import com.blog.dao.BlogDao;
+import com.blog.dao.CommentDao;
 import com.blog.entity.Blog;
 import com.blog.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ public class BlogServiceImpl implements BlogService {
 
     @Resource
     private BlogDao blogDao;
+    @Autowired
+    private CommentDao commentDao;
 
     @Override
     public List<Blog> countList() {
@@ -56,8 +59,15 @@ public class BlogServiceImpl implements BlogService {
         return blogDao.add(paramBlog);
     }
 
+    /**
+     * 删除博客的同时，也删除对应的全部评论
+     * @param paramInteger
+     * @return
+     */
     @Override
     public Integer delete(Integer paramInteger) {
+
+        commentDao.deleteByBlogId(paramInteger);
         return blogDao.delete(paramInteger);
     }
 

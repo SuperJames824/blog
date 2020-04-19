@@ -26,4 +26,6 @@ public interface BlogService {
     Integer delete(Integer paramInteger);
     //按类型查询数量
     Integer getBlogCountByTypeId(Integer paramInteger);
+
+
 }
