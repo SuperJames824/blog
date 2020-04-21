@@ -3,7 +3,7 @@ package com.blog.util;
 import java.util.ArrayList;
 import java.util.List;
 
-
+    //str.trim()去掉字符串首尾的空格并返回
 public class StringUtil {
     public static boolean isEmpty(String str) {
         if ((str == null) || ("".equals(str.trim()))) {

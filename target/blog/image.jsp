@@ -1,3 +1,13 @@
+
+
+<%--
+    验证码的jsp
+     验证码的jsp
+      验证码的jsp
+       验证码的jsp
+        验证码的jsp
+--%>
+
 <%@ page contentType="image/jpeg"
          import="java.awt.*,
          		java.awt.image.*,

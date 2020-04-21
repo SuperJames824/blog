@@ -51,7 +51,7 @@ public class BloggerController {
 
    /**
      *更改个人信息
-     * @param imageFile
+     * @param imageFile 头像文件
      * @param blogger
      * @param request
      * @return
@@ -61,17 +61,15 @@ public class BloggerController {
     @RequestMapping("/save")
     public  String update(@RequestParam(value = "imageFile",required = false)MultipartFile imageFile ,
                           Blogger blogger,HttpServletRequest request) throws IOException {
-
+        //存储博主个人简介图片
         if(!imageFile.isEmpty()){
-            //获取部署在
             String filepath=request.getServletContext().getRealPath("/");
-            //D:\LearningSoft\IDEA 2019.3.3\ideawork\blog\target\blog\
-            System.out.println(filepath);
+            System.out.println(filepath);   //D:\LearningSoft\IDEA 2019.3.3\ideawork\blog\target\blog\
             //uuid给文件生成随机名  imageFile.getOriginalFilename()获取文件本来名然后取后缀
             String imageName=UUID.randomUUID().toString().substring(0,6).replace("-", "")+"."+imageFile.getOriginalFilename().split("\\.")[1];
             //使用 MulitpartFile 接口中方法，把上传的文件写到指定位置
             imageFile.transferTo(new File(filepath+"static/userImages/"+imageName));
-            //更改blogger的文件名称
+            //更改blogger的图片文件名称
             blogger.setImageName(imageName);
         }
 

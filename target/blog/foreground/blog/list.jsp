@@ -10,12 +10,21 @@
 			<ul>
 			  <c:forEach var="blog" items="${blogList}">
 			  	  <li style="margin-bottom: 30px">
-				  	<span class="date"><a href="${pageContext.request.contextPath}/blog/articles/${blog.id}.html"><fmt:formatDate value="${blog.releaseDate }" type="date" pattern="yyyy年MM月dd日"/></a></span>
-				  	<span class="title"><a href="${pageContext.request.contextPath}/blog/articles/${blog.id}.html">${blog.title }</a></span>
-				  	<span class="summary">摘要: ${blog.summary }...</span>
+				  	<span class="date"><a href="${pageContext.request.contextPath}/blog/articles/${blog.id}.html">
+						<fmt:formatDate value="${blog.releaseDate }" type="date" pattern="yyyy年MM月dd日"/>
+					</a>
+					</span>
+
+				  	<span class="title">
+						<a href="${pageContext.request.contextPath}/blog/articles/${blog.id}.html">
+								${blog.title }
+						</a>
+					</span>
+
+				  	<span class="summary">摘要: ${blog.summary}...</span>
 				  	<span class="img">
-				  		<c:forEach var="image" items="${blog.imagesList }">
-					  		<a href="${pageContext.request.contextPath}/blog/articles/${blog.id}.html">${image }</a>
+				  		<c:forEach var="image" items="${blog.imagesList}">
+					  		<a href="${pageContext.request.contextPath}/blog/articles/${blog.id}.html">${image}</a>
 					  		&nbsp;&nbsp;
 				  		</c:forEach>
 				  	</span>
@@ -30,7 +39,7 @@
 <div>
 	<nav>
 	  <ul class="pagination pagination-sm">
-	    ${pageCode }
+	    ${pageCode}
 	  </ul>
 	</nav>
  </div>

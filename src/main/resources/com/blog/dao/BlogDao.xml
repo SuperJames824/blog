@@ -16,7 +16,7 @@
         <association property="blogType" column="typeId" select="com.blog.dao.BlogTypeDao.findById"></association>
 
     </resultMap>
-
+<!--供前端页面使用-->
     <select id="countList"  resultMap="BlogResult">
 		SELECT DATE_FORMAT(releaseDate,'%Y年%m月') AS releaseDateStr ,
 		COUNT(*) AS blogCount  FROM t_blog GROUP BY DATE_FORMAT(releaseDate,'%Y年%m月')

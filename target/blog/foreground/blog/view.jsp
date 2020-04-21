@@ -43,7 +43,7 @@
 	<div>
 	   <div class="blog_title"><h3><strong>${blog.title }</strong></h3></div>
 	   <div style="padding-left: 330px;padding-bottom: 20px;padding-top: 10px">
-		<div class="bshare-custom"><a title="分享到QQ空间" class="bshare-qzone"></a><a title="分享到新浪微博" class="bshare-sinaminiblog"></a><a title="分享到人人网" class="bshare-renren"></a><a title="分享到腾讯微博" class="bshare-qqmb"></a><a title="分享到网易微博" class="bshare-neteasemb"></a><a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis"></a><span class="BSHARE_COUNT bshare-share-count">0</span></div><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=&amp;pophcol=1&amp;lang=zh"></script><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script>
+		<div class="bshare-custom"><a title="分享到QQ空间" class="bshare-qzone"></a><a title="分享到新浪微博" class="bshare-sinaminiblog"></a><a title="分享到网易微博" class="bshare-neteasemb"></a><a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis"></a><span class="BSHARE_COUNT bshare-share-count">0</span></div><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=&amp;pophcol=1&amp;lang=zh"></script><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script>
 	   </div>
 		<div class="blog_info">
 			发布时间：『 <fmt:formatDate value="${blog.releaseDate }" type="date" pattern="yyyy-MM-dd HH:mm"/>』&nbsp;&nbsp;博客类别：${blog.blogType.typeName}&nbsp;&nbsp;阅读(${blog.clickHit}) 评论(${blog.replyHit})
@@ -58,14 +58,17 @@
 					&nbsp;&nbsp;无
 				</c:when>
 				<c:otherwise>
-					<c:forEach var="keyWord" items="${keyWords }">
+					<c:forEach var="keyWord" items="${keyWords}">
 						&nbsp;&nbsp;<a href="${pageContext.request.contextPath}/blog/q.html?q=${keyWord}" target="_blank">${keyWord }</a>&nbsp;&nbsp;
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
 		</div>
+		<%--上一篇下一篇		--%>
+		<%--上一篇下一篇		--%>
+		<%--上一篇下一篇		--%>
 		<div class="blog_lastAndNextPage">
-			${pageCode }
+			${pageCode}
 		</div>
 	</div>
 </div>
@@ -85,7 +88,7 @@
 			<c:otherwise>
 				<c:forEach var="comment" items="${commentList }" varStatus="status">
 						<c:choose>
-							<c:when test="${status.index<10 }">
+							<c:when test="${status.index<10}">
 								<div class="comment">
 									<span><font>${status.index+1 }楼&nbsp;&nbsp;&nbsp;&nbsp;${comment.userIp }：</font>${comment.content }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<fmt:formatDate value="${comment.commentDate }" type="date" pattern="yyyy-MM-dd HH:mm"/>&nbsp;]</span>
 								</div>								
@@ -94,7 +97,7 @@
 								<div class="otherComment">
 									<div class="comment">
 										<span><font>${status.index+1 }楼&nbsp;&nbsp;&nbsp;&nbsp;${comment.userIp }：</font>${comment.content }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<fmt:formatDate value="${comment.commentDate }" type="date" pattern="yyyy-MM-dd HH:mm"/>&nbsp;]</span>
-									</div>		
+									</div>
 								</div>						
 							</c:otherwise>
 						</c:choose>
@@ -114,7 +117,9 @@
 				<textarea style="width: 100%" rows="3" id="content" name="content" placeholder="来说两句吧..."></textarea>
 			</div>
 			<div class="verCode">
-				验证码：<input type="text" value="${imageCode }" name="imageCode"  id="imageCode" size="10" onkeydown= "if(event.keyCode==13)form1.submit()"/>&nbsp;<img onclick="javascript:loadimage();"  title="换一张试试" name="randImage" id="randImage" src="${pageContext.request.contextPath}/image.jsp" width="60" height="20" border="1" align="absmiddle"> 
+				验证码：<input type="text" value="${imageCode}" name="imageCode"  id="imageCode" size="10" onkeydown= "if(event.keyCode===13)form1.submit()"/>&nbsp;
+				<img onclick="javascript:loadimage();" title="换一张试试" name="randImage" id="randImage"
+				src="${pageContext.request.contextPath}/image.jsp" width="60" height="20" border="1" align="absmiddle">
 			</div>
 			<div class="publishButton">
 				<button class="btn btn-primary" type="button" onclick="submitData()">发表评论</button>

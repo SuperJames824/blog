@@ -44,7 +44,7 @@
 	</delete>
 
 
-
+<!--查询该博客类别下的博客数量,以及该博客类型名称和id-->
 <select id="findAll" resultMap="BlogTypeResult">
 		SELECT t2.id,t2.typeName,COUNT(t1.id) AS
 		blogCount FROM t_blog t1 RIGHT JOIN t_blogType t2

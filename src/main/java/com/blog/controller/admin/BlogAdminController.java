@@ -25,7 +25,6 @@ public class BlogAdminController {
     private BlogService blogService;
 
     @RequestMapping({"/save"})
-    //前台是$.post() 加@Requestbody注解报错！
     public String save( Blog blog)
             throws Exception {
         int resultTotal = 0;
@@ -47,7 +46,9 @@ public class BlogAdminController {
 
 
     @RequestMapping({"/list"})
-    public String list(@RequestParam(value = "page", required = false) String page, @RequestParam(value = "rows", required = false) String rows, Blog s_blog, HttpServletResponse response)
+    public String list(@RequestParam(value = "page", required = false) String page,
+                       @RequestParam(value = "rows", required = false) String rows,
+                       Blog s_blog, HttpServletResponse response)
             throws Exception {
         PageBean pageBean = new PageBean(Integer.parseInt(page), Integer.parseInt(rows));
         Map<String, Object> map = new HashMap<>();

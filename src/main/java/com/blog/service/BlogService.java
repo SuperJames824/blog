@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface BlogService {
-    //无参数查询所有
+    //分组查询发表日期,博客类别,以及该组下的博客数量,供主页面使用
     List<Blog> countList();
     //有参查询
     List<Blog> list(Map<String, Object> paramMap);

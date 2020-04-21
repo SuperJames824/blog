@@ -24,7 +24,7 @@ public interface BlogTypeDao {
      BlogType findById(Integer paramInteger);
 
 
-    //无参数查询所有博客类型的list集合
+    //查询该博客类别下的博客数量,以及该博客类型名称和id
     List<BlogType> findAll();
 
 }

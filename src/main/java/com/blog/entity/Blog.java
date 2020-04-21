@@ -23,15 +23,15 @@ import java.util.List;
     private String content;
     //纯文本内容
     private String contentNoTag;
-    //博客类型
-    private BlogType blogType;
     //博客数量
     private Integer blogCount;
-    //方便操作，将Date类型转换成String
+    //方便操作，将Date类型转换成String,供前台的页面做按照日期展示博客
     private String releaseDateStr;
     //关键字
     private String keyWord;
-    //图片
+     //博客类型
+     private BlogType blogType;
+    //图片列表
     private List<String> imagesList = new LinkedList();
 
      public Integer getId() {
