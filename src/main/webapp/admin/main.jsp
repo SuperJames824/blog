@@ -27,12 +27,12 @@
 			});
 		}
 	}
-	
-	
+
 	function openPasswordModifyDialog(){
 		$("#dlg").dialog("open").dialog("setTitle","修改密码");
-		url="${pageContext.request.contextPath}/admin/blogger/modifyPassword.do?id=${currentUser.id}";
+		url="${pageContext.request.contextPath}/blogger/modifyPassword.do?id=${currentUser.id}";
 	}
+
 	
 	function modifyPassword(){
 		$("#fm").form("submit",{
@@ -44,7 +44,7 @@
 					return false;
 				}
 				if(newPassword!=newPassword2){
-					$.messager.alert("系统提示","确认密码输入错误！");
+					$.messager.alert("系统提示","两次密码输入不一致!");
 					return false;
 				}
 				return true;
@@ -77,7 +77,7 @@
 	function logout(){
 		$.messager.confirm("系统提示","您确定要退出系统吗？",function(r){
 			if(r){
-				window.location.href='${pageContext.request.contextPath}/admin/blogger/logout.do';
+				window.location.href='${pageContext.request.contextPath}/blogger/loginOut.do';
 			} 
 		 });
 	}
@@ -93,24 +93,37 @@
 	}
 
 </script>
+
+	<style type="text/css">
+		.tupian{
+			padding-top: 10px;
+			padding-bottom: 40px;
+			background-size: cover;
+			background: url("${pageContext.request.contextPath}/static/images/c3.jpg") no-repeat fixed center 0;
+
+		}
+	</style>
 </head>
 <body class="easyui-layout">
 <div region="north" style="height: 78px;background-color: #E0ECFF;overflow:hidden">
 	<table style="padding: 5px" width="100%">
-		<tr>
-			<td width="50%">
+			<td width="30%">
 				<img style="margin-top: -20px;" alt="logo" src="${pageContext.request.contextPath}/static/images/logo.png">
 			</td>
-			<td style="padding-bottom: 176px" valign="bottom" align="right" width="50%">
-				<font size="3">&nbsp;&nbsp;<strong>欢迎：</strong>${currentUser.userName }</font>
+			<td style="padding-bottom: 176px" valign="bottom" align="left" width="35%">
+				<a href="${pageContext.request.contextPath}/"><strong><span style="margin-top: 10px;border: #0000FF;font-size: large">返回博客展示页面</span></strong></a>
 			</td>
+			<td   style="padding-bottom: 176px" valign="bottom" align="right" width="35%">
+				<font size="3">&nbsp;&nbsp;<strong>欢迎：</strong>${currentUser.userName}</font>
+			</td>
+
 		</tr>
 	</table>
 </div>
-<div region="center">
+<div region="center" >
 	<div class="easyui-tabs" fit="true" border="false" id="tabs">
-		<div title="首页" data-options="iconCls:'icon-home'">
-			<div align="center" style="padding-top: 100px"><font color="red" size="10">欢迎使用</font></div>
+		<div title="首页" class="tupian" data-options="iconCls:'icon-home'">
+				<div align="center" style="padding-top: 100px"><font color="red" size="10">欢迎使用</font></div>
 		</div>
 	</div>
 </div>

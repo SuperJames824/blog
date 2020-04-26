@@ -1,34 +1,39 @@
 package com.blog.controller.admin;
-
 import com.blog.entity.Blogger;
 import com.blog.service.BloggerService;
 import com.blog.util.JsonUtil;
+import com.blog.util.PasswordUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import org.aspectj.weaver.ast.Test;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
+import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 //博主相关
 @Controller
-@RequestMapping("/admin/blogger")
+@RequestMapping("/blogger")
 public class BloggerController {
 
    @Autowired
     private BloggerService bloggerService;
 
-    private  HttpServletRequest request;
 
-    /**假的
+
+    /**
      * 验证登录功能
      * @return
      */
@@ -36,18 +41,68 @@ public class BloggerController {
       @RequestMapping({"/login"})
       public String login(Blogger blogger, HttpServletRequest request)
       {
-          String userName = blogger.getUserName();
-          Blogger b = bloggerService.findByName(userName);
-          if(b!=null){
-              if (b.getPassword().equals(blogger.getPassword())){
-                  request.getSession().setAttribute("currentUser",blogger);
-                  return "redirect:/admin/main.jsp";
+          //获取当前用户
+          Subject currentUser= SecurityUtils.getSubject();
+
+          //判断当前是否认证
+          if(!currentUser.isAuthenticated()){
+              //将前端传来的数据赋予Token
+              UsernamePasswordToken token=new UsernamePasswordToken(blogger.getUserName(),blogger.getPassword());
+              //记住我
+              token.setRememberMe(true);
+              try {
+                  //认证登录
+                  currentUser.login(token);
+                  //用户名不存在
+              }catch (UnknownAccountException uae){
+                  request.setAttribute("errorInfo",uae.getMessage());
+                  return "login";
+                  //密码错误
+              }catch (IncorrectCredentialsException ice ){
+                  request.setAttribute("errorInfo","密码错误!!!");
+                  return "login";
               }
+
           }
-          request.setAttribute("errorInfo","用户不存在");
-          request.getSession().setAttribute("currentUser",blogger);
+
+          return "redirect:/admin/main.jsp";
+
+      }
+
+
+    /**
+     * 安全登出
+     * @return
+     */
+    @RequestMapping("/loginOut")
+      public  String loginOut(){
+          Subject currentUser = SecurityUtils.getSubject();
+          currentUser.logout();
           return "login";
       }
+
+
+    /**
+     * 修改密码
+     * @throws Exception
+     */
+    @ResponseBody
+    @RequestMapping({"/modifyPassword"})
+    public String modifyPassword(String newPassword)
+            throws Exception
+    {
+        Blogger blogger = new Blogger();
+        blogger.setPassword(PasswordUtil.getRealPwd(newPassword));
+        int resultTotal = this.bloggerService.update(blogger);
+
+        Map<String,Object> result=new HashMap<>();
+        if (resultTotal > 0) {
+            result.put("success", Boolean.TRUE);
+        } else {
+            result.put("success", Boolean.FALSE);
+        }
+        return JsonUtil.getJson(result);
+    }
 
    /**
      *更改个人信息
@@ -74,8 +129,6 @@ public class BloggerController {
         }
 
 
-
-
         //数据库更新之前,先把session中的currentUser的信息更新一下！！
         request.getSession().setAttribute("currentUser",blogger);
         int resultTotal = this.bloggerService.update(blogger);
@@ -91,9 +144,8 @@ public class BloggerController {
     }
 
     /**
-     * 为了解决前台富文本从session拿图片的问题
-     * @return
-     * @throws JsonProcessingException
+     * 解决了前台富文本从session拿图片的问题
+     * about me
      */
       @ResponseBody
       @RequestMapping("/find")
@@ -102,4 +154,15 @@ public class BloggerController {
           return  JsonUtil.getJson(blogger);
       }
 
+
+   @RequestMapping({"/aboutMe"})
+   public ModelAndView aboutMe() {
+       ModelAndView mav = new ModelAndView();
+       mav.addObject("blogger", this.bloggerService.find());
+       mav.addObject("mainPage", "foreground/blogger/info.jsp");
+       mav.addObject("pageTitle", "关于博主_Java开源博客系统");
+       mav.setViewName("mainTemp");
+       return mav;
+   }
 }
+

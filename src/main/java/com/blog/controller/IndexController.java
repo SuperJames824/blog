@@ -47,9 +47,10 @@ public class IndexController {
         map.put("typeId",typeId);
         map.put("releaseDateStr",releaseDateStr);
 
-        //按条件查询博客
+        //按条件查询博客,  把查出来的blog列表放到list.jsp中
         List<Blog> list = blogService.list(map);
         mav.addObject("blogList",list);
+        mav.addObject("mainPage","foreground/blog/list.jsp");
 
         //调用工具类进行分页操作
         StringBuffer param = new StringBuffer();
@@ -59,12 +60,10 @@ public class IndexController {
         if (StringUtil.isNotEmpty(releaseDateStr)) {
             param.append("releaseDateStr=" + releaseDateStr + "&");
         }
-        //jsp页面的引用
+        //jsp页面的引用 pageCode翻页
         mav.addObject("pageCode", PageUtil.genPagination(request.getContextPath() + "/index.html",
-                this.blogService.getTotal(map), Integer.parseInt(page), 10, param.toString()));
+                blogService.getTotal(map), Integer.parseInt(page), 10, param.toString()));
 
-
-        mav.addObject("mainPage","foreground/blog/list.jsp");
         mav.setViewName("mainTemp");
         return mav;
     }

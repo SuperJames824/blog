@@ -41,7 +41,7 @@
 
 		function formatBlogTitle(val,row){
 			if(val==null){
-				return "<span style="color: red; ">该博客已被删除！</span>";
+				return "<span>该博客已被删除!</span>";
 			}else{
 				return "<a target='_blank' href='${pageContext.request.contextPath}/blog/articles/"+val.id+".html'>"+val.title+"</a>";
 			}

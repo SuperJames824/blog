@@ -42,8 +42,8 @@ public class CommentAdminController {
         Map<String, Object> result = new HashMap<>();
         result.put("total",total);
         result.put("rows",list);
-        JsonUtil.getJson(result);
-        return  null;
+        return  JsonUtil.getJson(result);
+
 
     }
 
@@ -57,8 +57,7 @@ public class CommentAdminController {
         }
         Map<String, Object> result = new HashMap<>();
         result.put("success", Boolean.TRUE);
-        JsonUtil.getJson(result);
-        return null;
+        return JsonUtil.getJson(result);
     }
 
     @RequestMapping("/review")
@@ -73,8 +72,8 @@ public class CommentAdminController {
 
         Map<String, Object> result = new HashMap<>();
         result.put("success",Boolean.TRUE);
-        JsonUtil.getJson(result);
-        return null;
+        return JsonUtil.getJson(result);
+
     }
 
 }

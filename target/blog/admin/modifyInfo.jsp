@@ -43,7 +43,7 @@
 <body style="margin: 10px">
 <div id="p" class="easyui-panel" title="修改个人信息" style="padding: 10px">
 <%--																						     	   	enctype属性支持上传图片--%>
-	<form id="form1" action="${pageContext.request.contextPath}/admin/blogger/save.do" method="post" enctype="multipart/form-data">
+	<form id="form1" action="${pageContext.request.contextPath}/blogger/save.do" method="post" enctype="multipart/form-data">
 	 	<table cellspacing="20px">
 	   		<tr>
 	   			<td width="80px">用户名：</td>
@@ -94,7 +94,7 @@
 
     ue.addListener("ready",function(){
         //通过ajax请求数据
-        UE.ajax.request("${pageContext.request.contextPath}/admin/blogger/find.do",
+        UE.ajax.request("${pageContext.request.contextPath}/blogger/find.do",
             {	//直接从session里面取出图片会出错，所以这里选择从后台传递的json里面取出
                 method:"post",
                 async : true,

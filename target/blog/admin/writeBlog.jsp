@@ -33,10 +33,10 @@
 		}else{
 			$.post("${pageContext.request.contextPath}/admin/blog/save.do",
 					{'title':title,'blogType.id':blogTypeId,'content':content,
-						'contentNoTag':UE.getEditor('editor').getContentTxt(),
+						'contentNoTag':UE.getEditor('editor').getContentTxt(),//为了让lucene获取到不带html格式的纯文本,这个不需要存到数据库里面
 						'summary':UE.getEditor('editor').getContentTxt().substr(0,155),
-						'keyWord':keyWord},function(map){
-				if(map.success){
+						'keyWord':keyWord},function(result){
+				if(result.success){
 					alert("博客发布成功！");
 					resetValue();
 				}else{

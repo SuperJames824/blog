@@ -12,16 +12,16 @@
 						<div align="center" style="padding-top: 20px">未查询到结果，请换个关键字试试看！</div>
 					</c:when>
 					<c:otherwise>
-						<c:forEach var="blog" items="${blogList }">
+						<c:forEach var="blog" items="${blogList}">
 					  	  <li style="margin-bottom: 20px">
 						  	<span class="title"><a href="${pageContext.request.contextPath}/blog/articles/${blog.id}.html" target="_blank">${blog.title }</a></span>
-						  	<span class="summary">摘要: ${blog.content }...</span>
-						  	<span class="link"><a href="${pageContext.request.contextPath}/blog/articles/${blog.id}.html">http://blog.java1234.com/blog/articles/${blog.id}.html</a>&nbsp;&nbsp;&nbsp;&nbsp;发布日期：${blog.releaseDateStr }</span>
+						  	<span class="summary">摘要: ${blog.content}...</span>
+						  	<span class="link"><a href="${pageContext.request.contextPath}/blog/articles/${blog.id}.html">http://localhost:8080/blog/articles/${blog.id}.html</a>&nbsp;&nbsp;&nbsp;&nbsp;发布日期：${blog.releaseDateStr}</span>
 						  </li>
 						</c:forEach>
 					</c:otherwise>
 				</c:choose>
 			</ul>
 		</div>
-		${pageCode }
+		${pageCode}
    </div>

@@ -1,15 +1,13 @@
 package com.blog.controller.admin;
-
 import com.blog.entity.Blog;
 import com.blog.entity.PageBean;
+import com.blog.lucene.BlogIndex;
 import com.blog.service.BlogService;
 import com.blog.util.JsonUtil;
 import com.blog.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
@@ -23,6 +21,9 @@ import java.util.Map;
 public class BlogAdminController {
     @Autowired
     private BlogService blogService;
+    @Autowired
+    private BlogIndex blogIndex;
+
 
     @RequestMapping({"/save"})
     public String save( Blog blog)
@@ -30,10 +31,10 @@ public class BlogAdminController {
         int resultTotal = 0;
         if (blog.getId() == null) {
             resultTotal = this.blogService.add(blog);
-            // this.blogIndex.addIndex(blog);
+            blogIndex.addIndex(blog);
         } else {
             resultTotal = this.blogService.update(blog);
-            // this.blogIndex.updateIndex(blog);
+            blogIndex.update(blog);
         }
         Map<String,Object> map=new HashMap<>();
         if (resultTotal > 0) {
@@ -80,10 +81,11 @@ public class BlogAdminController {
         String[] idsStr = ids.split(",");
         Map<String,Object> result=new HashMap<>();
         for (int i = 0; i < idsStr.length; i++) {
-                this.blogService.delete(Integer.parseInt(idsStr[i]));
+                blogService.delete(Integer.parseInt(idsStr[i]));
+                blogIndex.deleteIndex(idsStr[i]);
                 result.put("success", Boolean.TRUE);
             }
-           // this.blogIndex.deleteIndex(idsStr[i]);
+
            return JsonUtil.getJson(result);
 
         }

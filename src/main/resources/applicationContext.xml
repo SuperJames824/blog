@@ -47,6 +47,52 @@
 
 
 
+
+
+    <!--    shiro核心配置 ,安全管理器 -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="myRealm"/>
+    </bean>
+
+    <!-- 自定义Realm ,Shiro从自定义Realm获取安全数据（如用户、角色、权限） -->
+    <bean id="myRealm" class="com.blog.realm.myRealm">
+        <property name="credentialsMatcher">
+            <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+            <!--加密算法名称 -->
+                <property name="hashAlgorithmName" value="MD5"/>
+            <!--加密的次数 -->
+               <property name="hashIterations" value="1902"/>
+            </bean>
+        </property>
+    </bean>
+
+    <!-- Shiro过滤器 -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <!-- Shiro的核心安全接口,这个属性是必须的 -->
+        <property name="securityManager" ref="securityManager"/>
+        <!-- 身份认证失败，则跳转到登录页面的配置 -->
+        <property name="loginUrl" value="/login.jsp"/>
+        <!--   成功去的页面-->
+        <property name="successUrl" value="/admin/main.jsp"/>
+        <!-- Shiro连接约束配置,即过滤链的定义 -->
+        <property name="filterChainDefinitions">
+            <value>
+                /login=anon
+                /admin/**=authc
+            </value>
+        </property>
+    </bean>
+
+    <!-- Spring 会为Shiro BEAN后置处理器。自动为Shiro bean调用init/destory方法-->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+    <!-- 开启Shiro注解? -->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor"/>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+
+
     <!--    事务管理-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"></property>

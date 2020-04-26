@@ -17,7 +17,7 @@
 
 				  	<span class="title">
 						<a href="${pageContext.request.contextPath}/blog/articles/${blog.id}.html">
-								${blog.title }
+								${blog.title}
 						</a>
 					</span>
 
@@ -28,7 +28,7 @@
 					  		&nbsp;&nbsp;
 				  		</c:forEach>
 				  	</span>
-				  	<span class="info">发表于 <fmt:formatDate value="${blog.releaseDate }" type="date" pattern="yyyy-MM-dd HH:mm"/> 阅读(${blog.clickHit}) 评论(${blog.replyHit}) </span>
+				  	<span class="info">发表于 <fmt:formatDate value="${blog.releaseDate}" type="date" pattern="yyyy-MM-dd HH:mm"/> 阅读(${blog.clickHit}) 评论(${blog.replyHit}) </span>
 				  </li>
 				  <hr style="height:5px;border:none;border-top:1px dashed gray;padding-bottom:  10px;" />
 			  </c:forEach>
